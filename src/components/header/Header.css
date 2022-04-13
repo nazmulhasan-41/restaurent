@@ -5,10 +5,9 @@
     background-image: url(http://localhost:3000/static/media/bannerbackground.0f3b87c042dc40563e27.png);
     background-repeat: no-repeat;
     background-size: cover;
-    /* min-width: max-content; */
+    background-color: antiquewhite;
+    margin-bottom: 10px;
 }
-
-
 
 nav.bg-primary.navbar.navbar-dark.navbar-expand {
     position: relative;
@@ -44,4 +43,11 @@ span#basic-addon2 {
     background-color: #cfcbe1;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
+}
+a.linkClass {
+    text-decoration: none;
+    margin-left: 10px;
+}
+a.linkClass {
+    color: black;
 }

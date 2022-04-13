@@ -1,0 +1,11 @@
+.row {
+    text-align: center;
+}
+.detailsSection.row {
+    margin-top: 40px;
+}
+
+.leftSection.col-md-6.col-12 {
+    margin-top: 10%;
+   
+}
