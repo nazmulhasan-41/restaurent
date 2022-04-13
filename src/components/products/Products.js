@@ -3,11 +3,16 @@ import ProductDetails from '../productDetails/ProductDetails';
 import './Products.css';
 import foods from '../../fakeData/Data/foodData';
 import { Button, Nav, Row } from 'react-bootstrap';
+import CartReducer from '../redux/reducers/CartReducer';
+import { connect } from 'react-redux'
+import { addToCart } from '../redux/actions/CartAction';
 
-const Products = () => {
-    console.log(foods);
+
+const Products = (props) => {
+     console.log('props----->',props);
+    const {cart,addToCart}=props;
+
     const [products, setProducts] = useState([]);
-    const [category, setCategory] = useState('');
     useEffect(() => {
         setProducts(foods);
     }, []);
@@ -36,7 +41,7 @@ const Products = () => {
 
             <Row className='productsAll'>
                 {
-                    products.map(pd => <ProductDetails key={pd.id} pd={pd} ></ProductDetails>)
+                    products.map(pd => <ProductDetails key={pd.id} pd={pd} addToCart={addToCart}></ProductDetails>)
                 }
 
             </Row>
@@ -46,4 +51,18 @@ const Products = () => {
     );
 };
 
-export default Products;
+
+const mapStateToProps = (state, ownProps) => {
+   
+    return {cart:state.cart}
+
+  }
+
+  const mapDispatchToProps = {
+    // ... normally is an object full of action creators
+    addToCart: addToCart
+  }
+
+
+  export default connect(mapStateToProps, mapDispatchToProps)(Products)
+// export default Products;
