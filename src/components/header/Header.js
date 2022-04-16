@@ -1,9 +1,27 @@
-import React from 'react';
-import { Container, FormControl, InputGroup, Nav, Navbar } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Container, FormControl, InputGroup, Nav, Navbar } from 'react-bootstrap';
 import './Header.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { connect } from 'react-redux';
+import { setUser } from '../redux/actions/CartAction';
 
-const Header = () => {
+const Header = (props) => {
+    const {user,setUser}=props;
+    let navigate = useNavigate();
+    
+    const logoutHandler=()=>{
+        const newUser={
+            name: '',
+            email: '',
+            password: '',
+            msg: ''
+        }
+        setUser(newUser);
+        navigate('/');
+
+    }
+   
+
     return (
         <div>
             <div className='HeaderImage' >
@@ -14,7 +32,16 @@ const Header = () => {
                         <Nav className="me-auto">
                             <Link className='linkClass' to="/">Home</Link>
                             <Link className='linkClass' to="/cart">Cart</Link>
-                            <Link className='linkClass' to="/pricing">Pricing</Link>
+                            <Link className='linkClass' to="/checkout">Checkout</Link>
+
+                            {/* {
+                                user.email ?
+                                <Button className='logoutButton' onClick={logoutHandler} >Logout</Button>:
+                                <Link className='linkClass' to="/login">Login</Link>
+
+
+                            } */}
+                            
                         </Nav>
 
                         <InputGroup className="mb-3">
@@ -32,4 +59,16 @@ const Header = () => {
     );
 };
 
-export default Header;
+const mapStateToProps = (state, ownProps) => {
+
+    return { user:state.user }
+}
+
+const mapDispatchToProps = {
+    setUser:setUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
+
+
+// export default Header;

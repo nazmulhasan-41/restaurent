@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { addToCart, removeFromCart } from '../redux/actions/CartAction';
+import { addToCart, removeFromCart, setUser } from '../redux/actions/CartAction';
 import { connect } from 'react-redux';
 import foods from '../../fakeData/Data/foodData';
 import { Button } from 'react-bootstrap';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const Cart = (props) => {
-    const { cart, removeFromCart } = props;
+
+    let navigate = useNavigate();
+
+
+    const { cart, removeFromCart ,user} = props;
+    
     const [total,setTotal]=useState(0);
     useEffect(()=>{
         var sum=0;
@@ -16,7 +22,23 @@ const Cart = (props) => {
         }
         setTotal(sum);
        
-    },[cart])
+    },[cart]);
+
+    const checkOutHandler=()=>{
+        
+        console.log('checkout Handler clicked');
+
+        if(user.email)
+        {
+            navigate('/checkout');
+            
+        }
+        else{
+            navigate('/login');
+        }
+        
+
+    }
     return (
         <div>
             {
@@ -35,7 +57,9 @@ const Cart = (props) => {
                 )
             }
             Total cost : {total}
-
+            {
+                total && <Button onClick={checkOutHandler} >checkout</Button>
+            }
         </div>
     );
 };
@@ -43,13 +67,16 @@ const Cart = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
 
-    return { cart: state.cart }
+    return { cart: state.cart ,
+            user:state.user        
+    }
 
 }
 
 const mapDispatchToProps = {
     // ... normally is an object full of action creators
-    removeFromCart: removeFromCart
+    removeFromCart: removeFromCart,
+    
 }
 
 
