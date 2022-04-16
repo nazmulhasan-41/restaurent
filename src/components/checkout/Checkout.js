@@ -29,7 +29,7 @@ const Checkout = (props) => {
 
     const placeOrderHandler=()=>{
 
-        const newOrder={cart,user,successOrder};
+        const newOrder={user,successOrder};
         newOrder.successOrder=cart;
         console.log('in checkout-------->',newOrder);
         setSuccessOrder(newOrder);

@@ -25,35 +25,9 @@ const Login = (props) => {
     });
     const [loginFlag,setLoginFlag]=useState(false);
 
-    const signupHandler = () => {
 
-        if (user2.email && user2.password && user2.name) {
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, user2.email, user2.password)
-                .then((userCredential) => {
-                    // Signed in 
-                    // const user = userCredential.user;
-                    
-                    const newUser = { ...user2, msg: 'signup successfull' };
-                    setUser(newUser);
-                    
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log('error', errorMessage);
-                    const newUser = { ...user, msg: errorMessage };
-                    setUser(newUser);
-
-                    // ..
-                });
-        }
-    }
 
     const inputHandler = (e) => {
-
-        //validate email
-
 
         if (e.target.name === 'email') {
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
@@ -76,7 +50,6 @@ const Login = (props) => {
     }
 
     const loginHandler=()=>{
-        // console.log('login');
         setLoginFlag(!loginFlag);
     }
     const loginSubmitHandler=()=>{
@@ -86,13 +59,8 @@ const Login = (props) => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, user2.email, user2.password)
           .then((userCredential) => {
-            // Signed in 
-            // const user = userCredential.user;
-
             const newUser = { ...user2, msg: 'login successfull' };
             setUser(newUser);
-
-            console.log(newUser);
             navigate('/checkout');
           })
           .catch((error) => {
@@ -102,10 +70,29 @@ const Login = (props) => {
             setUser(newUser);
 
             console.log(errorMessage)
-          });
-        }
+          });}}
+    const signupHandler = () => {
 
+        if (user2.email && user2.password && user2.name) {
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, user2.email, user2.password)
+                .then((userCredential) => {
+                    
+                    const newUser = { ...user2, msg: 'signup successfull' };
+                    //setUser(newUser);
+                    navigate('/');
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    const newUser = { ...user2, msg: errorMessage };
+                    setUser(newUser);
+
+                    // ..
+                });
+        }
     }
+
     const signUpToogle=()=>{
         console.log('signUpToogle');
         setLoginFlag(!loginFlag)

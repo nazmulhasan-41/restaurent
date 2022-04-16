@@ -10,6 +10,7 @@ const initialState = {
         msg: ''
     },
     successOrder: [],
+    loggedInUser : {email:''}
 }
 
 export default function CartReducer(state = initialState, action) {
@@ -20,21 +21,27 @@ export default function CartReducer(state = initialState, action) {
             return {
                 cart: [...state.cart, product[0]],
                 user: state.user,
-                successOrder: [...state.successOrder]
+                successOrder: [...state.successOrder],
+                loggedInUser: state.loggedInUser
             };
         case REMOVE_FROM_CART:
             const remainingItem = state.cart.filter(pd => pd.id !== parseInt(action.id));
             return {
                 cart: remainingItem,
                 user: state.user,
-                successOrder: [...state.successOrder]
+                successOrder: [...state.successOrder],
+                loggedInUser: state.loggedInUser
             }
         case SET_USER:
+            //console.log('in set user---',action.userVar);
+
+            const loggedInUserEmail=action.userVar.email;
 
             return {
                 user: action.userVar,
                 cart: [...state.cart],
-                successOrder: [...state.successOrder]
+                successOrder: [...state.successOrder],
+                loggedInUser: {...state.loggedInUser,email:loggedInUserEmail}
             }
         case SET_SUCCESS_ORDER:
 
@@ -43,19 +50,20 @@ export default function CartReducer(state = initialState, action) {
             return {
                 user: state.user,
                 cart: [],
-                successOrder: [...state.successOrder, action.order.successOrder]
+                successOrder: [...state.successOrder, action.order],
+                loggedInUser: state.loggedInUser
 
             }
         case EMPTY_CART:
             return {
                 cart: [],
                 user: state.user,
-                successOrder: [...state.successOrder]
+                successOrder: [...state.successOrder],
+                loggedInUser: state.loggedInUser
             }
 
         default:
-            // If this reducer doesn't recognize the action type, or doesn't
-            // care about this specific action, return the existing state unchanged
+        
             return state;
 
     }

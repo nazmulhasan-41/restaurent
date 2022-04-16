@@ -19,11 +19,11 @@ export const setUser=(userVar)=>{
 }
 
 export const setSuccessOrder=(order)=>{
-    console.log('in action=====',order)
+    
     return {type:SET_SUCCESS_ORDER, order}
 }
 export const emptyCart=()=>{
-    console.log('EMPTY_CART---');
+    
     return {type: EMPTY_CART}
 }
 

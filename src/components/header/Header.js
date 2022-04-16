@@ -28,19 +28,20 @@ const Header = (props) => {
 
                 <Navbar bg="primary" variant="dark">
                     <Container>
-                        <Navbar.Brand href="/">Navbar</Navbar.Brand>
+                        <Link to="/">Navbar</Link>
                         <Nav className="me-auto">
                             <Link className='linkClass' to="/">Home</Link>
                             <Link className='linkClass' to="/cart">Cart</Link>
                             <Link className='linkClass' to="/checkout">Checkout</Link>
+                            <Link className='linkClass' to="/orders">My Orders</Link>
 
-                            {/* {
+                            {
                                 user.email ?
                                 <Button className='logoutButton' onClick={logoutHandler} >Logout</Button>:
                                 <Link className='linkClass' to="/login">Login</Link>
 
 
-                            } */}
+                            }
                             
                         </Nav>
 
