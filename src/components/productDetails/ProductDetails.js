@@ -23,10 +23,9 @@ const ProductDetails = (props) => {
                 <div>
                 <Button variant="primary" onClick={()=>addToCart(pd.id)} >Add to Cart</Button>
 
-                <Link to={`/singlePageProduct/${pd.id}`}>Details</Link>
+                <Link className='detailsButton' to={`/singlePageProduct/${pd.id}`}>Details</Link>
 
 
-                {/* <Button variant="primary" onClick={}>Details</Button> */}
 
                 </div>
                 

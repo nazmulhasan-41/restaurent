@@ -32,10 +32,10 @@ const Products = (props) => {
     return (
         <>
             <Nav className="me-auto">
-            <Button onClick={()=>buttonHandler('all')} > All</Button>
-                <Button onClick={()=>buttonHandler('breakfast')} > Breakfast</Button>
-                <Button onClick={()=>buttonHandler('lunch')} > lunch</Button>
-                <Button onClick={()=>buttonHandler('dinner')}> Dinner</Button>
+            <Button className='foodTimeSelection' onClick={()=>buttonHandler('all')} > All</Button>
+                <Button className='foodTimeSelection' onClick={()=>buttonHandler('breakfast')} > Breakfast</Button>
+                <Button className='foodTimeSelection' onClick={()=>buttonHandler('lunch')} > lunch</Button>
+                <Button className='foodTimeSelection' onClick={()=>buttonHandler('dinner')}> Dinner</Button>
              
             </Nav>
 
