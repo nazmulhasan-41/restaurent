@@ -24,7 +24,7 @@ const SinglePageProduct = (props) => {
             <Row className='detailsSection'>
                 <Col className='leftSection' xs={12} md={6}>
                     <h2>
-                        {pd.title} <Badge bg="secondary">new</Badge>
+                        {pd.title} 
                     </h2>
                     <h6>
                         {pd.subtitle}
