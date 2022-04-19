@@ -1,0 +1,15 @@
+.loginArea.col-md-6.col-12 {
+    background-color: aliceblue;
+    margin-bottom: 20px;
+    padding-bottom: 113px;
+    padding-top: 50px;
+}
+
+.orderArea.col-md-6.col-12 {
+    /* border: 2px solid; */
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    text-align: end;
+}

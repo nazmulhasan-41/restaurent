@@ -3,10 +3,10 @@ import { Button, Container, FormControl, InputGroup, Nav, Navbar } from 'react-b
 import './Header.css';
 import { Link, useNavigate } from "react-router-dom";
 import { connect } from 'react-redux';
-import { setUser } from '../redux/actions/CartAction';
+import { emptyCart, setUser } from '../redux/actions/CartAction';
 
 const Header = (props) => {
-    const {user,setUser}=props;
+    const {user,setUser,emptyCart}=props;
     let navigate = useNavigate();
     
     const logoutHandler=()=>{
@@ -17,11 +17,11 @@ const Header = (props) => {
             msg: ''
         }
         setUser(newUser);
+        emptyCart();
         navigate('/');
 
     }
    
-
     return (
         <div>
             <div className='HeaderImage' >
@@ -32,7 +32,7 @@ const Header = (props) => {
                         <Nav className="me-auto">
                             <Link className='linkClass' to="/">Home</Link>
                             <Link className='linkClass' to="/cart">Cart</Link>
-                            <Link className='linkClass' to="/checkout">Checkout</Link>
+                            {/* <Link className='linkClass' to="/checkout">Checkout</Link> */}
                             
 
                             {
@@ -50,11 +50,8 @@ const Header = (props) => {
                                 <>
                                  <Link className='linkClass' to="/login">Login</Link>
                                
-
                                 </>
                                
-
-
                             }
                             
                         </Nav>
@@ -80,7 +77,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-    setUser:setUser
+    setUser:setUser,
+    emptyCart: emptyCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

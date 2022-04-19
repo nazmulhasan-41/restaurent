@@ -1,38 +1,62 @@
 import React from 'react';
+import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
+import './Order.css';
+
 
 const Orders = (props) => {
-    const { user, successOrder , loggedInUser} = props;
-    console.log('in order page====>', props);
+    const { user, successOrder, loggedInUser } = props;
     let navigate = useNavigate();
-    if(!user.email){
+    if (!user.email) {
         return (
             <>
-            {
-                <Navigate to='/login' replace />
-            }
+                {
+                    <Navigate to='/login' replace />
+                }
             </>
         )
     }
 
     return (
         <div>
+            Hello : 
             {
                 loggedInUser.email
             }
             {
                 successOrder.map(order =>
-                
-                <li>
-                    
+
+                    <Table className='orderTable' >
+                        
+                    <tbody>
                     {
                         (order.user.email===loggedInUser.email)?
+                        order.successOrder.map(ord =>
+                            
+                            <tr> 
+                            <td>{ord.id} </td>
+                            <td><img className='orderImage' src={ord.img} alt="Girl in a jacket"  height="50"/></td>
 
-                        order.successOrder.map(ord => <li>{ord.id}</li>):
-                        ''
-                    }
-                </li>
+                            <td>{ord.title}</td>
+                            <td>{ord.price}</td>
+                            <td>{ord.count +1}</td>
+                            <td>{(ord.count +1)*ord.price}</td>
+
+
+                            </tr>
+                            
+                            )
+                            
+                            :
+                        <div ></div>
+                    }   
+                    </tbody>
+
+                  
+                    </Table>
+
+
                 )
             }
         </div>
@@ -42,7 +66,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         user: state.user,
         successOrder: state.successOrder,
-        loggedInUser:state.loggedInUser
+        loggedInUser: state.loggedInUser
     }
 }
 

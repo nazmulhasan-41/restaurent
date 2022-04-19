@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { useParams } from "react-router-dom";
 import foods from '../../fakeData/Data/foodData';
+import { addToCart } from '../redux/actions/CartAction';
 import './singlePageProduct.css';
 
 
@@ -10,6 +12,7 @@ const SinglePageProduct = (props) => {
     const params = useParams();
     const getId = params.productId;
     const [pd, setPd] = useState([]);
+    const {addToCart}=props;
 
     useEffect(() => {
         //  console.log(typeof(getId))
@@ -35,8 +38,7 @@ const SinglePageProduct = (props) => {
                     </h6>
                     <h2 className='price'>${pd.price}</h2>
 
-                    <Button variant="primary">Add to Cart</Button>
-
+                    <Button variant="primary" onClick={()=>addToCart(pd.id)} >Add to Cart</Button>
 
 
                 </Col>
@@ -50,4 +52,20 @@ const SinglePageProduct = (props) => {
     );
 };
 
-export default SinglePageProduct;
+const mapStateToProps = (state, ownProps) => {
+   
+    return {cart:state.cart}
+
+  }
+
+  const mapDispatchToProps = {
+    // ... normally is an object full of action creators
+    addToCart: addToCart
+  }
+
+
+  export default connect(mapStateToProps, mapDispatchToProps)(SinglePageProduct)
+// export default Products;
+
+
+// export default SinglePageProduct;

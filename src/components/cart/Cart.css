@@ -1,0 +1,26 @@
+.table-responsive-sm {
+    width: 50%;
+}
+
+.table-responsive-sm {
+    margin-left: auto;
+}
+.totalCost {
+    text-align: end;
+}
+table.table.table-sm.table-striped.table-bordered.table-hover {
+    width: 83%;
+    text-align: center;
+    margin-left: auto;
+    /* margin-right: auto; */
+}
+input#count {
+    width: 34px;
+}
+td.incdec {
+    display: flex;
+}
+.value {
+    margin-left: 6px;
+    padding-top: 5px;
+}

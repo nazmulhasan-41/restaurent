@@ -9,7 +9,6 @@ import { addToCart } from '../redux/actions/CartAction';
 
 
 const Products = (props) => {
-     console.log('props----->',props);
     const {cart,addToCart}=props;
 
     const [products, setProducts] = useState([]);

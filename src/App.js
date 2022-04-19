@@ -10,6 +10,7 @@ import Login from './components/login/Login';
 import Checkout from './components/checkout/Checkout';
 import Success from './components/success/Success';
 import Orders from './components/orders/Orders';
+import EmptyCart from './components/emptyCart/EmptyCart';
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
         <Route path='/checkout' element={<Checkout/>}  />
         <Route path='/success' element={<Success/> } />
         <Route path='/orders' element={<Orders/>}  />
+        <Route path='/emptyCart' element={<EmptyCart/>}  />
+
 
       </Routes>
 

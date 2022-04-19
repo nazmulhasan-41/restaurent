@@ -10,3 +10,47 @@ input.signUpButton {
 input.newRegButton {
     margin-left: 10px;
 }
+.loginArea {
+    background-color: #f0ecec;
+    border: 2px solid;
+    margin-left: 25%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-right: 25%;
+    border-radius:10px;
+}
+
+input.signUpButton {
+    border-radius: 5px;
+    padding: 2%;
+    background-color: darkseagreen;
+}
+input.haveAccount {
+    border-radius: 5px;
+    padding: 2%;
+    background-color: darkseagreen;
+
+}
+input.googleSign {
+    border-radius: 5px;
+    padding: 2%;
+    background-color: cadetblue;
+}
+input#name {
+    width: -webkit-fill-available;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 6px;
+}
+input#email {
+    width: -webkit-fill-available;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 6px;
+}
+input#password {
+    width: -webkit-fill-available;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 6px;
+}

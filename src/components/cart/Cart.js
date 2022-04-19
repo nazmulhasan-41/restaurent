@@ -1,74 +1,118 @@
 import React, { useEffect, useState } from 'react';
-import { addToCart, removeFromCart, setUser } from '../redux/actions/CartAction';
+import { addToCart, incCount, removeFromCart, setUser,decCount } from '../redux/actions/CartAction';
 import { connect } from 'react-redux';
-import foods from '../../fakeData/Data/foodData';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { Navigate, useNavigate } from 'react-router-dom';
-
+import './Cart.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const Cart = (props) => {
-
     let navigate = useNavigate();
-
-
-    const { cart, removeFromCart ,user} = props;
-    
-    const [total,setTotal]=useState(0);
-    useEffect(()=>{
-        var sum=0;
-        for(var i=0;i<cart.length;i++)
-        {
-            sum+=(cart[i]).price;
+    const { cart, removeFromCart, user, incCount,decCount } = props;
+    const [total, setTotal] = useState(0);
+    const [count,setCount]=useState(0);
+    useEffect(() => {
+        var sum = 0;
+        for (var i = 0; i < cart.length; i++) {
+            sum += (cart[i]).price * ((cart[i].count)+1);
         }
         setTotal(sum);
-       
-    },[cart]);
 
-    const checkOutHandler=()=>{
-        
-        console.log('checkout Handler clicked');
+    }, [cart]);
 
-        if(user.email)
-        {
+    const checkOutHandler = () => {
+        if (user.email) {
             navigate('/checkout');
-            
         }
-        else{
+        else {
             navigate('/login');
         }
-        
-
     }
+    if (cart.length == 0) {
+        return (
+            <Navigate to='/emptyCart' replace />
+        )
+    }
+    
+    const countHandler=(e)=>{
+        setCount(e.target.value);
+    }
+    const increaseCount=(id)=>{
+        incCount(id);
+        
+    }
+    const decreaseCount=(id,zeroCheck)=>{
+        if(zeroCheck){decCount(id);}
+        
+    }
+
     return (
         <div>
-            {
-                cart.map(pd => {
-                    return (
-                        <>
+            <Table striped bordered hover size="sm">
+                <thead>
 
-                            <li key={pd.id}><Button onClick={() => removeFromCart(pd.id)}>delete</Button>{pd.title}  {pd.price} </li>
+                </thead>
+                <tbody className='tbody'>
 
-                        </>
+                    {
+                        cart.map(pd => {
+                            return (
+                                <>
 
-                    )
+                                    <tr key={pd.id}>
+                                        <td>
+                                            <FontAwesomeIcon onClick={() => removeFromCart(pd.id)} icon={faTrash} />
+                                        </td>
+                                        <td><img src={pd.img} alt="Girl in a jacket" height="50"></img>  </td>
+                                        <td>{pd.title}</td>
+                                        <td className='incdec'>
+                                        <Button onClick={()=>decreaseCount(pd.id, pd.count)}>-</Button>
+                                           <div className='value'>{pd.count+1}</div> 
+                                            <Button onClick={()=>increaseCount(pd.id)}>+</Button>
+                                        </td>
+                                        <td> {pd.category}</td>
+                                        <td>{pd.price}</td>
+                                        <td>{pd.price * (pd.count+1)}</td>
 
+                                    </tr>
+                                </>
+                            )
+                        }
+                        )
+                    }
+
+                </tbody>
+            </Table>
+            <div className='totalCost'>
+                <div>
+                    <Table responsive="sm" className='totalTable'>
+                        <thead>
+                            <tr>
+
+                                <th>Total Cost</th>
+                                <th>{total}</th>
+
+                            </tr>
+                        </thead>
+                    </Table>
+                </div>
+
+                {
+                    total && <Button onClick={checkOutHandler} >checkout</Button>
                 }
-
-                )
-            }
-            Total cost : {total}
-            {
-                total && <Button onClick={checkOutHandler} >checkout</Button>
-            }
+            </div>
         </div>
     );
+
 };
 
 
 const mapStateToProps = (state, ownProps) => {
 
-    return { cart: state.cart ,
-            user:state.user        
+    return {
+        cart: state.cart,
+        user: state.user
     }
 
 }
@@ -76,7 +120,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
     // ... normally is an object full of action creators
     removeFromCart: removeFromCart,
-    
+    incCount:incCount,
+    decCount:decCount
+
 }
 
 

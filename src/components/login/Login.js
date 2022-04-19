@@ -124,14 +124,14 @@ const Login = (props) => {
                      :
                     <>
                     <input className='signUpButton' type="submit" onClick={signupHandler} value="Sign Up" />
-                <input type="submit" value="Already Have an Account" onClick={loginHandler} /><br />
+                <input className='haveAccount' type="submit" value="Already Have an Account" onClick={loginHandler} /><br />
 
                     </>
                 }
                 
             </div>
 
-            <input type="submit" value="Google Sign Up"  /> <br />
+            <input className='googleSign' type="submit" value="Google Sign Up"  /> <br />
 
             {user.msg}
 

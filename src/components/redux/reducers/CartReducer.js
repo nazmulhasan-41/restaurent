@@ -1,4 +1,4 @@
-import { ADD_TO_CART, EMPTY_CART, REMOVE_FROM_CART, SET_SUCCESS_ORDER, SET_USER } from "../actions/CartAction";
+import { ADD_TO_CART, DECREASE_COUNT, EMPTY_CART, INC_COUNT, REMOVE_FROM_CART, SET_SUCCESS_ORDER, SET_USER } from "../actions/CartAction";
 import foods from "../../../fakeData/Data/foodData";
 
 const initialState = {
@@ -10,42 +10,45 @@ const initialState = {
         msg: ''
     },
     successOrder: [],
-    loggedInUser : {email:''}
+    loggedInUser: { email: '' },
+    i: 0,
 }
 
 export default function CartReducer(state = initialState, action) {
     // The reducer normally looks at the action type field to decide what happens
     switch (action.type) {
         case ADD_TO_CART:
-            const product = foods.filter(food => food.id === parseInt(action.id))
+            var p = foods.filter(food => food.id === parseInt(action.id));
+            var randomVariable = Math.random();
+
+            p[0].count = 0;
+            let newCart = [...state.cart];
+
+            newCart.push(p[0]);
             return {
-                cart: [...state.cart, product[0]],
-                user: state.user,
-                successOrder: [...state.successOrder],
-                loggedInUser: state.loggedInUser
+                ...state,
+                // cart:[...state.cart],
+                 cart: newCart,
             };
+
         case REMOVE_FROM_CART:
+            console.log('REMOVE_FROM_CART------>>', action);
             const remainingItem = state.cart.filter(pd => pd.id !== parseInt(action.id));
             return {
+                ...state,
                 cart: remainingItem,
-                user: state.user,
-                successOrder: [...state.successOrder],
-                loggedInUser: state.loggedInUser
             }
         case SET_USER:
-            //console.log('in set user---',action.userVar);
 
-            const loggedInUserEmail=action.userVar.email;
+            const loggedInUserEmail = action.userVar.email;
 
             return {
                 user: action.userVar,
                 cart: [...state.cart],
                 successOrder: [...state.successOrder],
-                loggedInUser: {...state.loggedInUser,email:loggedInUserEmail}
+                loggedInUser: { ...state.loggedInUser, email: loggedInUserEmail }
             }
         case SET_SUCCESS_ORDER:
-
-            console.log('in reducer====>',action);
 
             return {
                 user: state.user,
@@ -56,14 +59,27 @@ export default function CartReducer(state = initialState, action) {
             }
         case EMPTY_CART:
             return {
+                ...state,
                 cart: [],
-                user: state.user,
-                successOrder: [...state.successOrder],
-                loggedInUser: state.loggedInUser
-            }
 
-        default:
+            }
+        case INC_COUNT:
+
+            var product = state.cart.filter(pd => pd.id === parseInt(action.pdId));
+
+            product[0].count += 1;
+            return {
+                ...state, cart:[...state.cart]
+
+            }
+        case DECREASE_COUNT:
+            var product = state.cart.filter(pd => pd.id === parseInt(action.pdId));
+            product[0].count -= 1;
+
+            return {...state,cart:[...state.cart]}
         
+        default:
+
             return state;
 
     }

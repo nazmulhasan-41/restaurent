@@ -68,3 +68,6 @@ button.btn.btn-primary {
 button.foodTimeSelection.btn.btn-primary {
     background-color: #396fbf;
 }
+.me-auto.navbar-nav {
+    padding-top: 7px;
+}
